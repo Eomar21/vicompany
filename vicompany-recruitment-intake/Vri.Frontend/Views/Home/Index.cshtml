@@ -91,7 +91,7 @@
                             @foreach (var quote in Model.Quotes)
                             {
                                 <tr>
-                                    <td>@quote.Date</td>
+                                    <td>@quote.Date.ToString("O")</td>
                                     <td>@quote.Rate</td>
                                 </tr>
                             }

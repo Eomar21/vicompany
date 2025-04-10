@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
-
+using System;
 using Vri.Domain.Interfaces;
 using Vri.Domain.Repositories;
 
@@ -13,6 +13,10 @@ public class Startup
 {
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddHttpClient("TicklyClient", client =>
+        {
+            client.BaseAddress = new Uri("https://tickly.vicompany.io/");
+        });
         services.TryAddTransient<IQuotesRepository, DummyQuotesRepository>();
 
         services.AddControllersWithViews().AddRazorRuntimeCompilation();
