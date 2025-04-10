@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
+using System.Threading.Tasks;
 using Vri.Domain.Interfaces;
 using Vri.Domain.Repositories;
 using Vri.Domain.Services;
@@ -17,13 +17,13 @@ public class HomeController : Controller
     }
 
     [HttpGet("")]
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
         var positionRepo = new FakeTransactionRepository();
         var portfolioRepo = new PortfolioService(positionRepo);
         var positions = portfolioRepo.GetForUser(10000, "test1");
-        var quotes = this.quotesRepository.GetQuotesForIsin("AEX");
-            
+        var quotes = await quotesRepository.GetQuotesForIsin("AEX");
+
         return View(new PortfolioViewModel(positions.Instruments, positions.CashPosition, quotes));
     }
 }

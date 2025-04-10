@@ -4,33 +4,30 @@ using Vri.Domain.Interfaces;
 using System.Net.Http;
 using Vri.Domain.Models;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace Vri.Domain.Repositories;
-/// <summary>
-/// Todo: Should be replaced by data from https://tickly.vicompany.io/underlyings/{isin}
-/// </summary>
-public class DummyQuotesRepository : IQuotesRepository
+
+public class QuotesRepository : IQuotesRepository
 {
     private readonly IHttpClientFactory m_HttpClientFactory;
 
-    public DummyQuotesRepository(IHttpClientFactory httpClientFactory)
+    public QuotesRepository(IHttpClientFactory httpClientFactory)
     {
         m_HttpClientFactory = httpClientFactory;
     }
 
-    public IReadOnlyList<Quote> GetQuotesForIsin(string isin)
+    public async Task<IReadOnlyList<Quote>> GetQuotesForIsin(string isin)
     {
         var client = m_HttpClientFactory.CreateClient("TicklyClient");
         var query = $"underlyings/{isin.ToLower()}";
-        // TODO - make that async later
-        var response = client.GetAsync(query).Result;
+        var response = await client.GetAsync(query);
         if (!response.IsSuccessStatusCode)
         {
             return new List<Quote>();
         }
 
-        // TODO - make that async later
-        string json = response.Content.ReadAsStringAsync().Result;
+        string json = await response.Content.ReadAsStringAsync();
 
         TicksResponse ticksResponse = JsonConvert.DeserializeObject<TicksResponse>(json);
         var quotes = new List<Quote>();

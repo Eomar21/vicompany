@@ -17,7 +17,7 @@ public class Startup
         {
             client.BaseAddress = new Uri("https://tickly.vicompany.io/");
         });
-        services.TryAddTransient<IQuotesRepository, DummyQuotesRepository>();
+        services.TryAddTransient<IQuotesRepository, QuotesRepository>();
 
         services.AddControllersWithViews().AddRazorRuntimeCompilation();
     }
