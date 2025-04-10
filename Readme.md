@@ -1,7 +1,7 @@
 # Developer Log
 
 ## Objective 1 :
-- Read the documentation carefully understood what needs to be done from there.
+- Read the documentation carefully and understood what needs to be done from there.
 - Looked into the unit test as I assumed this where all the criteria will be located assuming TDD is being applied here which was the case "Thanks for that :) "
 - Implemented all the criteria needed from the unit test which was straight forward and saw the unit test passing as I went through each criteria.
 ## Objective 2 :
@@ -12,3 +12,4 @@
 
 ## Objective 3 :
 - I decided to change the IQuotesRepository although solid says extend and never change interfaces but I made an exception here as I know this is not being used anywhere and also that I prefer to have everything by default Async.
+- Added Unit test for IQuotesRepository
